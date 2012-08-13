@@ -16,6 +16,7 @@
 // limitations under the License.
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 #define	kAccounting	@"accounting"
 #define	kAirport	@"airport"
@@ -115,8 +116,6 @@
 #define	kVeterinaryCare	@"veterinary_care"
 #define	kZoo	@"zoo"
 
-#define kGOOGLE_API_KEY @"API KEY"
-
 @interface GooglePlacesObject : NSObject
 {
     NSString    *placesId;
@@ -140,24 +139,24 @@
     
 }
 
-@property (nonatomic, retain) NSString    *placesId;
-@property (nonatomic, retain) NSString    *reference;
-@property (nonatomic, retain) NSString    *name;
-@property (nonatomic, retain) NSString    *icon;
-@property (nonatomic, retain) NSString    *rating;
-@property (nonatomic, retain) NSString    *vicinity;
-@property (nonatomic, retain) NSArray     *type; //array
-@property (nonatomic, retain) NSString    *url;
-@property (nonatomic, retain) NSArray     *addressComponents; //array
-@property (nonatomic, retain) NSString    *formattedAddress;
-@property (nonatomic, retain) NSString    *formattedPhoneNumber;
-@property (nonatomic, retain) NSString    *website;
-@property (nonatomic, retain) NSString    *internationalPhoneNumber;
-@property (nonatomic, retain) NSString      *searchTerms;
+@property (nonatomic, strong) NSString    *placesId;
+@property (nonatomic, strong) NSString    *reference;
+@property (nonatomic, strong) NSString    *name;
+@property (nonatomic, strong) NSString    *icon;
+@property (nonatomic, strong) NSString    *rating;
+@property (nonatomic, strong) NSString    *vicinity;
+@property (nonatomic, strong) NSArray     *type; //array
+@property (nonatomic, strong) NSString    *url;
+@property (nonatomic, strong) NSArray     *addressComponents; //array
+@property (nonatomic, strong) NSString    *formattedAddress;
+@property (nonatomic, strong) NSString    *formattedPhoneNumber;
+@property (nonatomic, strong) NSString    *website;
+@property (nonatomic, strong) NSString    *internationalPhoneNumber;
+@property (nonatomic, strong) NSString      *searchTerms;
 @property (nonatomic, assign) CLLocationCoordinate2D    coordinate;
 //NEW
-@property (nonatomic, retain) NSString    *distanceInFeetString;
-@property (nonatomic, retain) NSString    *distanceInMilesString;
+@property (nonatomic, strong) NSString    *distanceInFeetString;
+@property (nonatomic, strong) NSString    *distanceInMilesString;
 
 - (id)initWithJsonResultDict:(NSDictionary *)jsonResultDict andUserCoordinates:(CLLocationCoordinate2D)userCoords;
 - (id)initWithJsonResultDict:(NSDictionary *)jsonResultDict searchTerms:(NSString *)terms andUserCoordinates:(CLLocationCoordinate2D)userCoords;

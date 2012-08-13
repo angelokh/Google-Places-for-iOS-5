@@ -129,4 +129,5 @@ distanceInMiles:distanceInMiles
     return [self initWithJsonResultDict:jsonResultDict searchTerms:@"" andUserCoordinates:userCoords];
 
 }
+
 @end

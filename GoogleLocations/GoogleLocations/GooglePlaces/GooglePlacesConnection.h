@@ -15,47 +15,41 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import <Foundation/Foundation.h>
-#import "../SBJSON/SBJson.h"
+#import <CoreLocation/CoreLocation.h>
 #import "GooglePlacesObject.h"
+#import "ASIHTTPRequest.h"
 
 @protocol GooglePlacesConnectionDelegate;
 
-@interface GooglePlacesConnection : NSObject
+@interface GooglePlacesConnection : NSObject <ASIHTTPRequestDelegate>
 {
-    NSMutableData       *responseData;
-    NSURLConnection     *connection;
     BOOL                connectionIsActive;
     int                 minAccuracyValue;
-    //NEW
+
     CLLocationCoordinate2D userLocation;
 }
 
-@property (nonatomic, weak) id <GooglePlacesConnectionDelegate> delegate;
-@property (nonatomic, retain) NSMutableData     *responseData;
-@property (nonatomic, retain) NSURLConnection   *connection;
+@property (nonatomic, assign) id <GooglePlacesConnectionDelegate> delegate;
 @property (nonatomic, assign) BOOL              connectionIsActive;
 @property (nonatomic, assign) int               minAccuracyValue;
-//NEW
+
+@property (nonatomic, strong) NSString* pageToken;
+
 @property (nonatomic, assign) CLLocationCoordinate2D userLocation;
+
+@property (nonatomic, strong) NSOperationQueue* reqQueue;
 
 // useful functions
 -(id)initWithDelegate:(id)del;
 
--(void)getGoogleObjectsWithQuery:(NSString *)query 
-                  andCoordinates:(CLLocationCoordinate2D)coords 
-                        andTypes:(NSString *)types;
-
--(void)getGoogleObjects:(CLLocationCoordinate2D)coords 
-               andTypes:(NSString *)types;
+-(void)getGoogleObjectsRankByDistance:(CLLocationCoordinate2D)coords 
+                             andTypes:(NSString *)types;
 
 -(void)getGoogleObjectDetails:(NSString*)reference;
 
--(void)cancelGetGoogleObjects;
-
 @end
 
-@protocol GooglePlacesConnectionDelegate
+@protocol GooglePlacesConnectionDelegate<NSObject>
 
 - (void) googlePlacesConnection:(GooglePlacesConnection *)conn didFinishLoadingWithGooglePlacesObjects:(NSMutableArray *)objects;
 - (void) googlePlacesConnection:(GooglePlacesConnection *)conn didFailWithError:(NSError *)error;
